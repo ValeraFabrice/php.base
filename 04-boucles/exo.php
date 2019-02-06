@@ -45,3 +45,15 @@ echo 'Le PGCD de ' . $cloneNumber1. ' et '. $cloneNumber2. ' est ' . $result;
 // équivaut à : echo "Le PGCD de $cloneNumber1 et $cloneNumber2 est $result";
 
 echo '<h2>4. Coder le jeu du FizzBuzz</h2>';
+
+for ($i = 0; $i <= 100; $i++) {
+    if ($i % 15 == 0) {
+        echo 'FizzBuzz, ';
+    } else if ($i % 3 == 0) {
+        echo 'Fizz, ';
+    } else if ($i % 5 == 0) {
+        echo 'Buzz, ';
+    } else {
+        echo $i. ' , ';
+    }
+}
