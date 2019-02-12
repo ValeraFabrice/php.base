@@ -56,4 +56,4 @@ echo '<h2> 1/ Afficher la liste de tous les éléves avec leurs notes.</h2>';
 
 foreach ($eleves as $eleve) {
 echo $eleve['nom'] . ' a eu '; 
-}
+} 
