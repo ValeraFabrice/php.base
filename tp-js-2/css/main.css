@@ -1,0 +1,47 @@
+
+#header {
+    background-image: url(../img/pizza.png);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 30rem;
+    position: relative;
+}
+
+#header p {
+    font-style: italic;
+    font-weight: bold;
+    margin-bottom: 50px;
+}
+
+body {
+    background-image: url(../img/bg1.png);
+    font-family: 'Playfair Display', serif;
+}
+
+#decouverte {
+    color: white;
+    margin-top: 30px;
+}
+
+hr {
+    border: 1px solid white;
+    width: 40px;
+}
+
+footer {
+    background-image: url(../img/bg_footer.png);
+}
+
+p {
+    text-align: center;
+
+}
+
+.row {
+    margin-top: 20px;
+    margin-bottom: 50px;
+    justify-content: space-between;
+}
