@@ -14,7 +14,13 @@ define('DB_PASSWORD', '');
 
 // On peut utiliser le bloc try catch pour attraper une erreur (exception) si elle se produit
 try {
-    $db = new PDO('mysql:host='.DB_HOST.';port=3306;dbname='.DB_NAME, DB_USER, DB_PASSWORD);
+    $db = new PDO('mysql:host='.DB_HOST.';port=3306;dbname='.DB_NAME, 
+    DB_USER, 
+    DB_PASSWORD,
+    //On active les eereurs PDO
+    [PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING]
+);
+    
 } catch (Exception $e) {
     echo '<span style="color: red">'.$e->getMessage().'</span>';
     echo '<p>Qu\'est-ce que tu as foutu à la ligne '.$e->getTrace()[0]['line'].' ?</p>';
@@ -23,8 +29,23 @@ try {
 }
 
 // Ecrire la requête permettant de récupérer tous les films
-
+$query = $db->query('SELECT * FROM movie');
+$movies = $query->fetchAll(PDO::FETCH_ASSOC);
+var_dump($movies);
 
 // Ecrire la requête permettant de récupérer tous les acteurs
+$query = $db->query('SELECT * FROM actor');
+$actors = $query->fetchAll(PDO::FETCH_ASSOC);
+
+// On peut parcourir le tableau de résultat
+foreach ($actors as $actor) {
+    echo '<h2>' .$actor['firstname'].' '.$actor['name'].'</h2>';
+}
 
 // Ecrire la requête permettant de récupérer le film Heat
+$query = $db->query('SELECT * FROM movie WHERE id = 4');
+$movie = $query->fetch(PDO::FETCH_ASSOC);
+var_dump($movie);
+
+// Afficher le nom du film
+echo $movie['name'];
