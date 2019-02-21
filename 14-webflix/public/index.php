@@ -11,11 +11,32 @@ require_once __DIR__ . '/../partials/header.php'; ?>
 
         <div class="col-lg-3">
 
-            <h1 class="my-4">Shop Name</h1>
+            <?php
+            /**
+             * Dynamiser la liste des catégories
+             * 1. Faire la requête SQL pour récupérer toutes les catégories
+             * 2. On récupère un résultat, un tableau de catégories.
+             * 3. On parcourt ce tableau et on remplace la partie HTML dans la div avec la classe list-group.
+             * 4. BONUS : Utiliser fetch() au lieu de fetchAll() avec un while.
+             */
+
+            // BONUS fetch() - Méthode alternative
+          // $query = $db->query('SELECT * FROM category');
+          
+          // while ($category = $query->fetch()) { // Tant qu'il y a des résultats dans la requête
+          //   echo $category['name'];
+          // }
+          // BONUS fetch() - Méthode alternative
+
+          $query = $db->query('SELECT * FROM category');
+          $categories = $query->fetchAll(); // [ ['id' => 1, 'name' => 'A'], ['id' => 2, 'name' => 'B'] ]
+        ?>
+
+            <h1 class="my-4">Catégories</h1>
             <div class="list-group">
-                <a href="#" class="list-group-item">Category 1</a>
-                <a href="#" class="list-group-item">Category 2</a>
-                <a href="#" class="list-group-item">Category 3</a>
+                <?php foreach ($categories as $category) { ?>
+                <a href="#" class="list-group-item"><?php echo $category['name']; ?></a>
+                <?php } ?>
             </div>
 
         </div>
@@ -52,107 +73,68 @@ require_once __DIR__ . '/../partials/header.php'; ?>
 
             <div class="row">
 
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">Item One</a>
-                            </h4>
-                            <h5>$24.99</h5>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam
-                                aspernatur!</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                        </div>
-                    </div>
-                </div>
+                <?php
+            /**
+             * Dynamiser la liste des films
+             * 1. Faire la requête SQL pour récupérer toutes les films.
+             * 2. On récupère un résultat, un tableau de films.
+             * 3. On parcourt ce tableau et on remplace la partie HTML
+             * dans la div avec la classe col-lg-4.
+             * 4. BONUUUUS : Générer un nombre d'étoiles aléatoire
+             */
 
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">Item Two</a>
-                            </h4>
-                            <h5>$24.99</h5>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam
-                                aspernatur! Lorem ipsum dolor sit amet.</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                        </div>
-                    </div>
-                </div>
+            $query = $db->query('SELECT * FROM movie');
+            $movies = $query->fetchAll();
+          ?>
 
+                <?php foreach ($movies as $movie) { ?>
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        <a href="#">
+                            <img class="card-img-top" src="assets/img/<?php echo $movie['cover']; ?>"
+                                alt="<?= $movie['name']; ?>">
+                            <div class="movie-cover"
+                                style="background-image: url(assets/img/<?php echo $movie['cover']; ?>)"></div>
+                        </a>
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a href="#">Item Three</a>
+                                <a href="#"><?= $movie['name']; ?></a>
                             </h4>
-                            <h5>$24.99</h5>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam
-                                aspernatur!</p>
+                            <h5>
+                                <?php
+                      $date = (new DateTime($movie['date']))->format('d F Y'); // 12 April 2019
+                      // On traduit les mois en français
+                      $date = str_replace(
+                        ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                        ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'],
+                        $date
+                      );
+                      echo $date;
+                     ?>
+                            </h5>
+                            <p class="card-text"><?= $movie['description']; ?></p>
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                            <small class="text-muted">
+                                <?php
+                      // Je génére un nombre d'étoiles aléatoires
+                      $stars = rand(0, 5);
+                      // J'affiche mes 5 étoiles
+                      for ($i = 1; $i <= 5; $i++) {
+                        // J'affiche les étoiles pleines si l'itération est inférieure
+                        // au nombre aléatoire $stars
+                        if ($i <= $stars) {
+                          echo '★ ';
+                        } else {
+                          echo '☆ ';
+                        }
+                      }
+                    ?>
+                            </small>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">Item Four</a>
-                            </h4>
-                            <h5>$24.99</h5>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam
-                                aspernatur!</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">Item Five</a>
-                            </h4>
-                            <h5>$24.99</h5>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam
-                                aspernatur! Lorem ipsum dolor sit amet.</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a href="#">Item Six</a>
-                            </h4>
-                            <h5>$24.99</h5>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam
-                                aspernatur!</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                        </div>
-                    </div>
-                </div>
+                <?php } ?>
 
             </div>
             <!-- /.row -->
@@ -166,12 +148,5 @@ require_once __DIR__ . '/../partials/header.php'; ?>
 </div>
 <!-- /.container -->
 
-
-<!-- require_once __DIR__ . '/../partials/header.php'; -->
-<!-- équivalent à : -->
-
-<?php 
-
-require_once __DIR__ .  '/../partials/footer.php'; 
+<?php require_once __DIR__ . '/../partials/footer.php';
 ?>
-

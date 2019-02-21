@@ -1,0 +1,26 @@
+Webflix
+
+Nous allons développer un super projet pour concurrencer Netflix !
+
+1. Pour la partie Intégration HTML :
+
+On utilisera Bootstrap pour réaliser l'intégration. La plupart des éléments présents sur la maquette peuvent être réalisés via la documentation: https://getbootstrap.com/docs/4.2/getting-started/introduction/
+Les vignettes qui présentent les séries devront être intégrées avec un effet CSS3 (scale) au survol. Un bouton "Voir" apparaitra uniquement au survol. Le site devra être responsive (Optionnel).
+
+
+2. Pour les animations JavaScript :
+
+Au niveau du menu :
+- Au clic sur "Les films", on affichera uniquement la liste des films
+- Au clic sur "Les séries", on affichera uniquement la liste des séries (show() et hide())
+
+Au niveau du slider :
+- On utilisera le plugin Slick, il suffira juste de suivre la documentation et d'adapter notre code: http://kenwheeler.github.io/slick/
+
+Au niveau des vignettes :
+- On clique sur une vignette, le slider est masqué et à sa place, une balise vidéo apparait avec la vidéo de la vignette concernée. On préparera donc une balise video en "display none".
+- Un bouton "Fermer la vidéo" apparaitra dans le menu qui permettra de masquer la vidéo et afficher à nouveau le slider.
+
+Ne vous prenez pas forcément tout de suite la tête avec le JavaScript, faites au moins la partie intégration. Vous aurez un visuel et ce sera déjà une première étape.
+
+Quand vous commencez à travailler sur la vidéo, dans un premier temps, ne vous embêtez pas à masquer la vidéo mais affichez la directement afin de pouvoir facilement travailler sur son intégration CSS. Vous penserez au JavaScript en dernier.

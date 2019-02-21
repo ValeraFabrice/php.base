@@ -1,0 +1,88 @@
+body {
+    background-color: lightgray;
+}
+
+/****
+Slider
+****/
+.slider div {
+    height: 350px;
+    background-position: center;
+    background-size: cover;
+    text-align: center;
+}
+
+.slick-prev {
+    z-index: 1;
+    left: 25px;
+}
+
+.slick-next {
+    z-index: 1;
+    right: 25px;
+}
+
+/*****
+Video + Bouton fermer la vidéo
+*****/
+#hideVideo, #video {
+    display: none
+}
+
+/*****
+Vignettes
+*****/
+.tvshow {
+    position: relative;
+    transition: 0.5s;
+    z-index: 1;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.tvshow:hover {
+    transform: scale(1.25);
+    cursor: pointer;
+    z-index: 2;
+}
+
+.show__cover {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 10px;
+}
+
+.show__content {
+    padding: 15px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    min-height: 200px;
+}
+
+.show__content .btn {
+    position: relative;
+    bottom: -50px;
+    opacity: 0;
+    transition: 0.5s;
+    border-radius: 30px;
+    background-color: transparent;
+    border-color: #fff !important;
+    box-shadow: none !important;
+}
+
+.show__content .btn:hover, .show__content .btn:active, .show__content .btn:focus {
+    background-color: #fff !important;
+    color: #000 !important;
+}
+
+@media (max-width: 768px) {
+    .tvshow {
+        margin-bottom: 40px;
+    }
+}

@@ -22,7 +22,7 @@ require_once __DIR__ . '/../config/database.php';
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
 
 </head>
 
@@ -40,25 +40,21 @@ require_once __DIR__ . '/../config/database.php';
 
                 <?php
                 // Gestion du menu dynamique
-                $meniItems = [
+                $menuItems = [
                     ['label' => 'Accueil', 'link' => 'index.php'],
-                    ['label' => 'Films', 'link' => 'movie_list.php']
-                ];
+                    ['label' => 'Films', 'link' => 'movie_list.php'],
+                    ['label' => 'Catégories', 'link' => 'category_list.php']
+                  ];
                 ?>
 
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
+                    <?php foreach ($menuItems as $item) { ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" href="<?php echo $item['link']; ?>">
+                            <?php echo $item['label']; ?>
+                        </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
+                    <?php } ?>
                 </ul>
             </div>
         </div>
