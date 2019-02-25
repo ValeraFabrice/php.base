@@ -4,6 +4,7 @@
 // require_once __DIR__ . '/../partials/header.php'; équivalent à :
 require_once __DIR__ . '/../partials/header.php'; ?>
 
+
 <!-- Page Content -->
 <div class="container">
 
@@ -12,15 +13,15 @@ require_once __DIR__ . '/../partials/header.php'; ?>
         <div class="col-lg-3">
 
             <?php
-            /**
-             * Dynamiser la liste des catégories
-             * 1. Faire la requête SQL pour récupérer toutes les catégories
-             * 2. On récupère un résultat, un tableau de catégories.
-             * 3. On parcourt ce tableau et on remplace la partie HTML dans la div avec la classe list-group.
-             * 4. BONUS : Utiliser fetch() au lieu de fetchAll() avec un while.
-             */
-
-            // BONUS fetch() - Méthode alternative
+          /**
+           * Dynamiser la liste des catégories
+           * 1. Faire la requête SQL pour récupérer toutes les catégories.
+           * 2. On récupère un résultat, un tableau de catégories.
+           * 3. On parcourt ce tableau et on remplace la partie HTML
+           * dans la div avec la classe list-group.
+           * 4. BONUS : Utiliser fetch() au lieu de fetchAll() avec un while.
+           */
+          // BONUS fetch() - Méthode alternative
           // $query = $db->query('SELECT * FROM category');
           
           // while ($category = $query->fetch()) { // Tant qu'il y a des résultats dans la requête
@@ -39,6 +40,8 @@ require_once __DIR__ . '/../partials/header.php'; ?>
                 <?php } ?>
             </div>
 
+            <a href="movie_add.php" class="btn btn-primary btn-block mt-4">Ajouter un film</a>
+
         </div>
         <!-- /.col-lg-3 -->
 
@@ -51,23 +54,24 @@ require_once __DIR__ . '/../partials/header.php'; ?>
                     <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                 </ol>
                 <div class="carousel-inner" role="listbox">
-                <?php
-                /**
-                 * On veut afficher entre 3 films aléatoires dans le carousel.
-                 * Ces films devront être des films avec une jaquette.
-                 * Si on a moins de 3 films avec jaquette, on affiche ces films.
-                 */
-                $query = $db->query('SELECT * FROM movie WHERE cover IS NOT NULL ORDER BY RAND() LIMIT 3');
-                $movies = $query->fetchAll();
-                ?>
+                    <?php
+              /**
+               * On veut afficher 3 films aléatoires dans le carousel. (ORDER BY)
+               * Ces films devront être des films avec une jaquette. (WHERE ... NOT NULL)
+               * Si on a moins de 3 films avec jaquette, on affiche ces films.
+               */
+              $query = $db->query('SELECT * FROM movie WHERE cover IS NOT NULL ORDER BY RAND() LIMIT 3');
+              $movies = $query->fetchAll();
+            ?>
 
-                <?php foreach ($movies as $key => $movie) { ?>
+                    <?php foreach ($movies as $key => $movie) { ?>
                     <div class="carousel-item <?php if ($key === 0) { echo 'active'; } ?>">
-                    <div class="movie-cover" style="background-image: urk(assets/img/<?php echo $movie['cover']; ?>)"></div>
-                </div>
+                        <div class="movie-cover"
+                            style="background-image: url(assets/img/<?php echo $movie['cover']; ?>)"></div>
+                    </div>
+                    <?php } ?>
 
-                <?php } ?>
-                    
+                </div>
                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
@@ -89,7 +93,6 @@ require_once __DIR__ . '/../partials/header.php'; ?>
              * dans la div avec la classe col-lg-4.
              * 4. BONUUUUS : Générer un nombre d'étoiles aléatoire
              */
-
             $query = $db->query('SELECT * FROM movie');
             $movies = $query->fetchAll();
           ?>
@@ -97,7 +100,7 @@ require_once __DIR__ . '/../partials/header.php'; ?>
                 <?php foreach ($movies as $movie) { ?>
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
-                        <a href="#">
+                        <a href="movie_single.php?id=<?= $movie['id']; ?>">
                             <img class="card-img-top" src="assets/img/<?php echo $movie['cover']; ?>"
                                 alt="<?= $movie['name']; ?>">
                             <div class="movie-cover"
@@ -105,7 +108,7 @@ require_once __DIR__ . '/../partials/header.php'; ?>
                         </a>
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a href="#"><?= $movie['name']; ?></a>
+                                <a href="movie_single.php?id=<?= $movie['id']; ?>"><?= $movie['name']; ?></a>
                             </h4>
                             <h5>
                                 <?php
