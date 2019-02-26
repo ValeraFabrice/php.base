@@ -23,6 +23,15 @@ INSERT INTO actor (`name`, `firstname`, `birthday`) VALUES
 ('Kilmer', 'Val', '1959-12-31');
 
 -- Il faut ajouter les relations dans la table "movie_has_actor"
+-- movie_id | actor_id
+--        1 |        1
+--        1 |        2
+--        2 |        1
+--        3 |        3
+--        3 |        5
+--        4 |        3
+--        5 |        4
+--        6 |        6
 INSERT INTO movie_has_actor (movie_id, actor_id) VALUES
 (1, 1), (1, 2),
 (2, 1),
@@ -33,21 +42,27 @@ INSERT INTO movie_has_actor (movie_id, actor_id) VALUES
 (9, 7),
 (19, 7),
 (20, 9),
-(21, 8),
+(21, 8);
 
 -- On veut afficher l'âge de tous les acteurs
-SELECT YEAR(NOW()) - YEAR (birthday) as age, firstname, name FROM actor;
+-- YEAR(NOW()) renvoie 2019
+SELECT YEAR(NOW()) - YEAR(birthday) FROM actor;
 
 -- On veut récupérer les films dans lesquels Al Pacino a joué
-SELECT * FROM movie_has_actor WHERE actor_id = 1
-INNER JOIN movie ON movie_id = movie_has_actor.movie_id
-WHERE actor_id =1;
+SELECT * FROM movie_has_actor
+INNER JOIN movie ON movie.id = movie_has_actor.movie_id
+WHERE actor_id = 1;
 
 -- On veut récupérer tous les acteurs du film Heat
 SELECT * FROM movie_has_actor
-INNER JOIN actor ON actor_id = movie_has_actor.movie_id
-INNER JOIN movie ON movie_id = movie_has_actor.movie_id
+INNER JOIN actor ON actor.id = movie_has_actor.actor_id
+INNER JOIN movie ON movie.id = movie_has_actor.movie_id
 WHERE movie.name = 'Heat';
 
--- On veut savoir dans quel film Al Pacino et DE Niro ont joué
-
+-- On veut savoir dans quel film Al Pacino et De Niro ont joués ensemble
+SELECT *, COUNT(movie.id) FROM movie_has_actor
+INNER JOIN actor ON actor.id = movie_has_actor.actor_id
+INNER JOIN movie ON movie.id = movie_has_actor.movie_id
+WHERE actor.name = 'de Niro' OR actor.name = 'Pacino'
+GROUP BY movie.id
+HAVING COUNT(movie.id) > 1;

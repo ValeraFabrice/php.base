@@ -1,9 +1,21 @@
 <?php
 
+  // Démarrer la session PHP
+  session_start();
+  
+  // Inclus les fichiers de configuration du site
+  require_once __DIR__ . '/../config/functions.php';
+  require_once __DIR__ . '/../config/config.php';
+  require_once __DIR__ . '/../config/database.php';
+?>
 
-require_once __DIR__ . '/../config/functions.php';
-require_once __DIR__ . '/../config/config.php';
-require_once __DIR__ . '/../config/database.php';
+<?php
+  // Démarrer la session PHP
+  session_start();
+  // Inclus les fichiers de configuration du site
+  require_once __DIR__ . '/../config/functions.php';
+  require_once __DIR__ . '/../config/config.php';
+  require_once __DIR__ . '/../config/database.php';
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +28,7 @@ require_once __DIR__ . '/../config/database.php';
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Shop Homepage - Webflix Template</title>
+    <title>Shop Homepage - Start Bootstrap Template</title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
@@ -31,7 +43,7 @@ require_once __DIR__ . '/../config/database.php';
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="#">Webflix</a>
+            <a class="navbar-brand" href="index.php"><?php echo $siteName; ?></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -39,18 +51,51 @@ require_once __DIR__ . '/../config/database.php';
             <div class="collapse navbar-collapse" id="navbarResponsive">
 
                 <?php
-                // Gestion du menu dynamique
-                $menuItems = [
-                    ['label' => 'Films', 'link' => 'index.php'],
-                    ['label' => 'Catégories', 'link' => 'category_list.php']
-                  ];
-                ?>
+          // Gestion du menu dynamique
+          $menuItems = [
+            ['label' => 'Films', 'link' => 'index.php'],
+            ['label' => 'Catégories', 'link' => 'category_list.php']
+          ];
+        ?>
 
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav mr-auto">
                     <?php foreach ($menuItems as $item) { ?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo $item['link']; ?>">
                             <?php echo $item['label']; ?>
+                        </a>
+                    </li>
+                    <?php } ?>
+                </ul>
+
+                <ul class="navbar-nav ml-auto">
+                    <?php if (isset($_SESSION['user'])) { ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <?php
+                /**
+                 * On se rend sur https://fr.gravatar.com/site/implement/images/
+                 * On peut créer un compte et y associer un avatar (lié à notre email).
+                 * On doit générer un hash de notre email avec md5().
+                 * On peut ensuite afficher une balise <img> avec un lien vers notre gravatar.
+                 * 
+                 * https://regexr.com/
+                 * https://www.md5online.fr/
+
+                 */
+                
+                echo $_SESSION['user']['email']; ?>
+                        </a>
+                    </li>
+                    <?php } else { ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="sign-up.php">
+                            Sign up
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.php">
+                            Login
                         </a>
                     </li>
                     <?php } ?>
