@@ -2,16 +2,6 @@
 
   // Démarrer la session PHP
   session_start();
-  
-  // Inclus les fichiers de configuration du site
-  require_once __DIR__ . '/../config/functions.php';
-  require_once __DIR__ . '/../config/config.php';
-  require_once __DIR__ . '/../config/database.php';
-?>
-
-<?php
-  // Démarrer la session PHP
-  session_start();
   // Inclus les fichiers de configuration du site
   require_once __DIR__ . '/../config/functions.php';
   require_once __DIR__ . '/../config/config.php';
@@ -78,13 +68,12 @@
                  * On peut créer un compte et y associer un avatar (lié à notre email).
                  * On doit générer un hash de notre email avec md5().
                  * On peut ensuite afficher une balise <img> avec un lien vers notre gravatar.
-                 * 
-                 * https://regexr.com/
-                 * https://www.md5online.fr/
-
                  */
-                
+
+                $hash = md5($SESSION['user']['email']);
                 echo $_SESSION['user']['email']; ?>
+
+                            <img width="40" src="https://www.gravatar.com/avatar/<?= $hash; ?>" />
                         </a>
                     </li>
                     <?php } else { ?>

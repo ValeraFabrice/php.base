@@ -1,5 +1,5 @@
 <?php
-// On inclus le fichier header.php sur la page
+// On inclut le fichier header.php sur la page
 require_once __DIR__ . '/../partials/header.php';
 var_dump($_SESSION);
 ?>
@@ -84,7 +84,7 @@ var_dump($_SESSION);
           <?php
             /**
              * Dynamiser la liste des films
-             * 1. Faire la requête SQL pour récupérer toutes les films.
+             * 1. Faire la requête SQL pour récupérer tous les films.
              * 2. On récupère un résultat, un tableau de films.
              * 3. On parcourt ce tableau et on remplace la partie HTML
              * dans la div avec la classe col-lg-4.
